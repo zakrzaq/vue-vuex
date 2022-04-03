@@ -1,19 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Hi Judy</h1>
+    <ul>
+      <li v-for="todo in top10todos" :key="todo.id">
+        {{ todo.title }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  computed: {
+    ...mapGetters(["todoList", "top10todos"]),
+  },
+  mounted() {
+    this.$store.dispatch("getTodoList");
+  },
+};
 </script>
 
 <style>
